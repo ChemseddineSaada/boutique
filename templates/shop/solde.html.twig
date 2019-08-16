@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{title}}{% endblock %}
+{% block ariane %}{{render(controller('App\\Controller\\ArianeController::index',{'path' : app.request.attributes.get('_route'),'data_array':app.request.attributes.get('_route_params')}))}}{% endblock %}
+{% block body %}
+
+<div class="product-badge text-center">
+  {% for product in products %}
+  <div class="card col-3" style="width: 18rem;">
+    <a href="{{path('shop.single.index',{'id': product.id})}}"><img src="{{asset(''~ product.image)}}"
+        class="card-img-top" alt="{{product.description}}"></a>
+    <div class="card-body">
+      <h6 class="card-text"><b>Nom : </b><a href="{{path('shop.single.index',{'id': product.id})}}">{{product.name}}</a>
+        {% if product.code == "solde" %}
+        <span class="badge badge-danger">SOLDÉ !</span>
+        {% endif %}
+      </h6>
+      <p class="card-text text-success"><b>Prix : {{product.price}} €</b></p>
+      <a href="{{path('shop.single.index',{'id': product.id})}}" class="btn btn-dark">Consulter</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

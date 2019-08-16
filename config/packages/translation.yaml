@@ -1,0 +1,7 @@
+framework:
+    # Définition d'une sorte de librairie de traduction pour la traduction des erreurs en Anglais de connexion
+    default_locale: 'fr'
+    translator:
+        default_path: '%kernel.project_dir%/translations'
+        fallbacks:
+            - fr

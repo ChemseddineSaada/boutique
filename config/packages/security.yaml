@@ -1,0 +1,45 @@
+security:
+    encoders:
+        App\Entity\User:
+        #Définition de l'algorithme de cryptage des mots de passe
+            algorithm : auto
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        in_memory: { memory: ~ }
+        # Provider pour le panneau de connexion
+        in_database:
+            entity:
+                class: App\Entity\User
+                property: username
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+
+            provider: in_database
+            # Definition du nom de l'action qui renvoie au panneau de connexion
+            form_login: 
+                login_path: login_panel 
+                check_path: login_panel
+
+            remember_me:
+                secret:   '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     /
+            # Definition du chemin d'accès à la fonction de déconnexion    
+            logout:
+                path:   app_logout
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+
+    # Restriction d'accès aux options administrateurs pour un rôle donné
+    access_control:
+        -  path: ^/admin/user
+           allow_if: "is_granted('ROLE_SUPER_ADMIN')"
+        -  path: ^/admin 
+           allow_if: "is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')"

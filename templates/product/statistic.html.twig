@@ -1,0 +1,39 @@
+{# templates/product/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+{% block menu %}{{render(controller('App\\Controller\\ShopController::adminMenu',{'routeName' : app.request.attributes.get('_route')}))}}{% endblock %}
+{% block body %}
+
+<div class="dashboard__navigation">
+    {{ knp_pagination_render(pagination) }}
+</div>
+</div>
+
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Email</th>
+            <th scope="col">Nombre de commandes</th>
+            <th scope="col">Produit(s) commandé(s)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for client in pagination %}
+        <tr>
+            <th scope="col">{{ client.id }}</th>
+            <th scope="col">{{ client.email }}</th>
+            <th scope="col">{{ client.commandes | length }}</th>
+            <th scope="col">
+                <ul>{% for command  in client.commandes  %}{% if command.product %}<li>{{ command.product.name }}</li>
+                    {% endif %}{% endfor %}
+            </th>
+            </ul>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="dashboard__navigation">
+    {{ knp_pagination_render(pagination) }}
+</div>
+{% endblock %}

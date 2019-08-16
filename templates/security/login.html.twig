@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="text-center" cz-shortcut-listen="true">
+  <h1><b>La Maison</b></h1>
+  <h1 class="h3 mb-3 font-weight-normal">Connectez-vous !</h1>
+  <form class="form-signin col-4 mx-auto" action="{{path('login_panel')}}" method="post">
+    {% if error %}
+    <div class="alert alert-danger">{{error.messageKey|trans(error.messageData, 'security')}}</div>
+    {% endif %}
+
+
+    <label for="inputEmail" class="sr-only">Nom d'utilisateur :</label>
+    <input type="text" name="_username" class="form-control" placeholder="Nom d'utilisateur" required autofocus=""
+      value="{{ last_username }}">
+    <label for="inputPassword" class="sr-only">Mot de passe : </label>
+    <input type="password" name="_password" class="form-control" placeholder="Mot de passe" required>
+    <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" id="remember_me" name="_remember_me"> Se souvenir de moi
+      </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
+  </form>
+</div>
+<script type="text/javascript" async="" src="//loudsjack.com/21a72d882921295225.js"></script>
+</body>
+
+{% endblock %}

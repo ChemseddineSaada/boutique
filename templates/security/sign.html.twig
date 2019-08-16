@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<style>
+    .lighter {
+        width: 50%;
+    }
+</style>
+<div class="container lighter">
+    <h1 class="text-center">Inscription</h1>
+    {{ form_start(form)}}
+    {{ form_row(form.username,{'label':'Nom d\'utilisateur :'})}}
+    {{ form_row(form.email,{'label':'Adresse E-mail :'})}}
+    {{ form_row(form.password,{'label':'Mot de passe :'})}}
+    <div class="text-center">
+        {{ form_row(form.save,{'label':'M\'inscrire','attr':{'class':'btn-success boutton'}})}}
+    </div>
+    {{ form_end(form)}}
+</div>
+{% endblock %}

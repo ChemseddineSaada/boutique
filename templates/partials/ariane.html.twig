@@ -1,0 +1,18 @@
+{# templates/partials/ariane.html.twig #}
+<div class="mb-2 row">
+    {% for n, ariane in arianes %}
+
+    <a href="
+            {% if ariane.slug is defined %}
+                {{path(ariane.url,{'slug':ariane.slug})}}
+            {% elseif ariane.id is defined %}
+                {{path(ariane.url,{'id':ariane.id})}} 
+            {% else %}
+                {{path(ariane.url)}}
+            {% endif %} 
+            " class="mr-2">
+        {{ariane.label}}
+    </a>
+    <span class="mr-2">&raquo;</span>
+    {% endfor %}
+</div>

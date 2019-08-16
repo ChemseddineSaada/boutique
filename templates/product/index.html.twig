@@ -1,0 +1,56 @@
+{# templates/product/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+{% block menu %}{{render(controller('App\\Controller\\ShopController::adminMenu',{'routeName' : app.request.attributes.get('_route')}))}}{% endblock %}
+{% block body %}
+
+<div class="dashboard__navigation">
+  {{ knp_pagination_render(pagination) }}
+</div>
+</div>
+{% for message in app.flashes('notice_nice') %}
+<div class="alert alert-primary  mx-auto col-6">
+  <p class="alert-link text-center">{{ message }}</p>
+</div>
+{% endfor %}
+
+{% for message in app.flashes('notice_bad') %}
+<div class="alert alert-danger mx-auto col-6">
+  <p class="alert-link text-center">{{ message }}</p>
+</div>
+{% endfor %}
+
+<table class="table text-center">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Prix</th>
+      <th scope="col">Status</th>
+      <th scope="col">Catégorie</th>
+      <th scope="col">Publié le</th>
+      <th scope="col">Mettre à jour</th>
+      <th scope="col">Supprimer</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for product in pagination %}
+    <tr>
+      <th scope="col">{{ product.id }}</th>
+      <th scope="col">{{ product.name }}</th>
+      <th scope="col">{{ product.price }}</th>
+      <th scope="col">{{ product.status }}</th>
+      <th scope="col">{{ product.category.name }}</th>
+      <th scope="col">{{ product.getPublishedAt.format('d-m-Y')}}</th>
+      <th scope="col"><a class="badge badge-primary" href="{{ path('admin.product.update',{'id':product.id})}}">Mettre à
+          jour</a></th>
+      <th scope="col"><a class="badge badge-danger"
+          href="{{ path('admin.product.delete',{'id':product.id})}}">Supprimer</a></th>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="dashboard__navigation">
+  {{ knp_pagination_render(pagination) }}
+</div>
+{% endblock %}

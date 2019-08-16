@@ -1,0 +1,56 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{{path('shop')}}">La Maison</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <div class="row">
+                <li class="nav-item"><a class="nav-link {{ app.request.get('routeName') == 'shop' ? 'active' }}"
+                        href="{{path('shop')}}">Accueil</a></li>
+                <li class="nav-item"><a
+                        class="nav-link {{ app.request.get('routeName') == 'shop.solde.index' ? 'active' }}"
+                        href="{{path('shop.solde.index')}}">Soldes</a></li>
+                {% for category in categories %}
+                <li class="nav-item"><a
+                    {% if currentSlug != '' and category.name == currentSlug.slug %} class="active nav-link" {% else %} class="nav-link" {% endif %}
+                        href="{{path('shop.category.index', {'slug': category.name} )}}">{{category.name}}</a></li>
+                {% endfor %}
+            </div>
+            
+            <!-- ICI AFFICHAGE DES BOUTTONS SELON L'UTILISATEUR CONNECTÉ-->
+            
+            <div class="login-class row">
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')  %}
+                <li class="btn-menu btn-success"><a class="nav-link white"
+                        href="{{path('admin.product.index')}}">Dashboard</a></li>
+                {% endif %}
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <li class="btn-menu btn-danger"><a class="nav-link white" href="{{path('app_logout')}}">Se
+                        déconnecter</a></li>
+                {% else %}
+                <li class="btn-menu btn-success"><a class="nav-link white" href="{{path('login_panel')}}">Se
+                        connecter</a></li>
+                <li class="btn-menu btn-light"><a class="nav-link black" href="{{path('sign_up')}}">S'inscrire !</a>
+                </li>
+                {% endif %}
+            </div>
+</nav>
+<style>
+    .btn-menu {
+        border-radius: 5px;
+        margin: auto 10px;
+    }
+
+    .login-class {
+        margin-left: 900px;
+    }
+
+    .white {
+        color: white !important;
+    }
+
+    .black {
+        color: black !important;
+    }
+</style>

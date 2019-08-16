@@ -1,0 +1,3 @@
+# translations/security.fr.yaml
+"Invalid credentials.": "Le nom d'utilisateur ou le mot de passe est incorrect."
+"Username could not be found.": "Nom d'utilisateur introuvable."

@@ -1,0 +1,66 @@
+{# templates/product/create.html.twig #}
+
+{% extends 'base.html.twig' %}
+{% block menu %}{{render(controller('App\\Controller\\ShopController::adminMenu',{'routeName' : app.request.attributes.get('_route')}))}}{% endblock %}
+{% block body %}
+<style>
+    .horizontal {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-around;
+    }
+</style>
+<h4 class="text-center">{{title}}</h4>
+<div class="container">
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    <div class="row">
+        <div class="col-6">
+            <div>
+                {{form_row(form.name)}}
+            </div>
+
+            <div>
+                {{form_row(form.description)}}
+            </div>
+
+            <div>
+                {{form_row(form.published_at)}}
+            </div>
+
+            <div>
+                {{form_row(form.price)}}
+            </div>
+
+            <div>
+                {{form_row(form.category)}}
+            </div>
+
+            <div>
+                {{form_row(form.size)}}
+            </div>
+
+            <div>
+                {{form_row(form.image)}}
+            </div>
+        </div>
+        <div class="col-6">
+            <div>
+                {{form_row(form.status)}}
+            </div>
+
+            <div>
+                {{form_row(form.code)}}
+            </div>
+
+            <div>
+                {{form_row(form.ref)}}
+            </div>
+        </div>
+        <div>
+            {{form_row(form.save)}}
+        </div>
+    </div>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

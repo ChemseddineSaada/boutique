@@ -1,12 +1,50 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .product-badge {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .pagination nav {
+            margin: 20px auto;
+        }
+
+        footer {
+            border-top: 1px solid rgba(100, 100, 100, 0.3);
+            padding: 30px;
+        }
+
+        .dashboard__navigation nav ul {
+            justify-content: center !important;
+        }
+    </style>
+    {% endblock %}
+</head>
+
+<body>
+    <header class="mb-5">
+        {% block menu %}{{render(controller('App\\Controller\\ShopController::mainMenu',{'routeName' : app.request.attributes.get('_route')}))}}{% endblock %}
+    </header>
+
+
+    <div class="container">
+        {% block ariane %}{% endblock %}
+        {% block info %}{% endblock %}
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
-    </body>
+    </div>
+    {% block footer %}<footer class="mt-5">
+        <p class="mt-5 mb-3 text-muted text-center">© Tous les droits réservés - 2019</p>
+    </footer>{% endblock %}
+</body>
+
 </html>

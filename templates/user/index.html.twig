@@ -1,0 +1,54 @@
+{# templates/user/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+{% block menu %}{{render(controller('App\\Controller\\ShopController::adminMenu',{'routeName' : app.request.attributes.get('_route')}))}}{% endblock %}
+{% block body %}
+
+<div class="dashboard__navigation">
+  {{ knp_pagination_render(pagination) }}
+</div>
+
+</div>
+{% for message in app.flashes('notice_nice') %}
+<div class="alert alert-success mx-auto col-6">
+  <p class="alert-link text-center">{{ message }}</p>
+</div>
+{% endfor %}
+
+{% for message in app.flashes('notice_bad') %}
+<div class="alert alert-danger mx-auto col-6">
+  <p class="alert-link text-center">{{ message }}</p>
+</div>
+{% endfor %}
+
+<table class="table text-center">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Username</th>
+      <th scope="col">Email</th>
+      <th scope="col">Roles</th>
+      <th scope="col">Permissions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in pagination %}
+    <tr>
+      <th scope="col">{{ user.id }}</th>
+      <th scope="col">{{ user.username }}</th>
+      <th scope="col">{{ user.email }}</th>
+      <th scope="col">{% for role in user.roles %}
+        <li class="text-left">{{ role }}</li>
+        {% endfor %}</th>
+      <th scope="col"><a class="badge badge-success" href="{{ path('admin.user.update',{'id':user.id})}}">Changer</a>
+      </th>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="dashboard__navigation">
+  {{ knp_pagination_render(pagination) }}
+</div>
+
+{% endblock %}

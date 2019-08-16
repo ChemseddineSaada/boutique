@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{title}}{% endblock %}
+{% block ariane %}{{render(controller('App\\Controller\\ArianeController::index',{'path' : app.request.attributes.get('_route'),'data_array':app.request.attributes.get('_route_params')}))}}{% endblock %}
+{% block body %}
+
+<div class="container">
+  <div>
+    <div class="row">
+
+      <div class="col-3">
+        <img src="{{asset(''~ product.image)}}" class="col-12" alt="{{product.description}}">
+        <img src="{{asset(''~ product.image)}}" class="col-12" alt="{{product.description}}">
+        <img src="{{asset(''~ product.image)}}" class="col-12" alt="{{product.description}}">
+      </div>
+
+      <img src="{{asset(''~ product.image)}}" class="col-5" alt="{{product.description}}">
+
+
+      <div>
+        <h6 class="card-text">{{product.name}}
+          {% if product.code == "solde" %}
+          <span class="badge badge-danger">SOLDÉ !</span>
+          {% endif %}
+        </h6>
+        <p class="card-text">Ref : </p>
+        <p class="card-text text-success"><b>Prix : {{product.price}} €</b></p>
+        <div>
+          <p class="card-text"><b>Taille : </b></p>
+          <select style="margin-bottom:10px; width:100%;">
+            {% for sizes in product.size %}<option>{{sizes | capitalize()}}</option>{% endfor %}
+          </select>
+        </div>
+        <div class="text-center"><a href="#" class="btn btn-dark">Acheter</a></div>
+      </div>
+    </div>
+    <p class="card-text"><b>Description :</b> {{product.description}}</p>
+  </div>
+</div>
+
+{% endblock %}

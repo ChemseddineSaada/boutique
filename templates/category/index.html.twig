@@ -1,0 +1,52 @@
+{# templates/user/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+{% block menu %}{{render(controller('App\\Controller\\ShopController::adminMenu',{'routeName' : app.request.attributes.get('_route')}))}}{% endblock %}
+{% block body %}
+
+<div class="dashboard__navigation">
+  {{ knp_pagination_render(pagination) }}
+</div>
+</div>
+{% for message in app.flashes('notice_nice') %}
+<div class="alert alert-success mx-auto col-6">
+  <p class="alert-link text-center">{{ message }}</p>
+</div>
+{% endfor %}
+
+{% for message in app.flashes('notice_bad') %}
+<div class="alert alert-danger mx-auto col-6">
+  <p class="alert-link text-center">{{ message }}</p>
+</div>
+{% endfor %}
+
+<table class="table text-center">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Description</th>
+      <th scope="col">Nombre de produits associés</th>
+      <th scope="col">Mettre à jour</th>
+      <th scope="col">Supprimer</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for category in pagination %}
+    <tr>
+      <th scope="col">{{ category.id }}</th>
+      <th scope="col">{{ category.name }}</th>
+      <th scope="col">{{ category.description }}</th>
+      <th scole="col">{{ category.product | length }}</th>
+      <th scope="col"><a class="btn btn-primary" href="{{path('admin.category.update',{'id':category.id})}}">Mettre à
+          jour</a></th>
+      <th scope="col"><a class="btn btn-danger"
+          href="{{path('admin.category.delete',{'id':category.id} )}}">Supprimer</a></th>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="dashboard__navigation">
+  {{ knp_pagination_render(pagination) }}
+</div>
+{% endblock %}
